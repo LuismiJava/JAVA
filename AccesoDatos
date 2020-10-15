@@ -1,0 +1,62 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Luismi;
+
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author FP Mañana A
+    */
+public class AccesoDatos {
+
+    private static String ruta="C:\\NetBeans\\AccesoDatos\\contactos.csv";
+    private static  String separador=",";
+    public static void grabarContacto(Usuario c) {
+        try {
+            FileWriter fw=new FileWriter(ruta, true);
+            String linea=c.getNombre()+separador+c.getEmail()+separador+c.getTelefono()+"\n";
+            fw.write(linea);
+            fw.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+    public static ArrayList<Usuario> recuperarContactos() {
+		ArrayList<Usuario> lista_usuarios=new ArrayList<Usuario>();
+		try {
+			FileReader fr=new FileReader(ruta);
+			BufferedReader br=new BufferedReader(fr);
+			String linea=br.readLine();
+			while(linea!=null)
+			{
+				String[] datos=linea.split(separador);
+				String nombre=datos[0];
+				String email=datos[1];
+				String telefono=datos[2];
+				Usuario c=new Usuario(nombre, email, telefono);
+				lista_usuarios.add(c);
+				linea=br.readLine();
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lista_usuarios;
+	}
+}
