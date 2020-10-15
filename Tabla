@@ -1,0 +1,49 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Luismi;
+
+/**
+ *
+ * @author FP Mañana A
+ */
+import java.util.ArrayList;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+/**
+ *
+ * @author FP Mañana A
+ */
+public class Inicio{
+    public static void mostrarVentana(String titulo, ArrayList<Usuario> lista_usuarios){
+        TableView tv=new TableView();
+        TableColumn<String, Usuario> columna1 = new TableColumn<>("NOMBRE");
+        columna1.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        TableColumn<String, Usuario> columna2 = new TableColumn<>("EMAIL");
+        columna2.setCellValueFactory(new PropertyValueFactory<>("email"));
+        TableColumn<String, Usuario> columna3 = new TableColumn<>("TELEFONO");
+        columna3.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        tv.getColumns().add(columna1);
+        tv.getColumns().add(columna2);
+         tv.getColumns().add(columna3);
+    
+        for (Usuario  c : lista_usuarios) {
+            tv.getItems().add(c);
+        }
+        
+        Stage ventana=new Stage();
+        ventana.setTitle(titulo);
+        VBox v=new VBox(20);
+        v.getChildren().addAll(tv);
+        Scene escena =new Scene(v, 200, 200);
+        ventana.setScene(escena);
+        ventana.show();
+    }
+}
